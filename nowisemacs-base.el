@@ -19,11 +19,26 @@
 ;; (set-frame-parameter nil 'fullscreen 'maximized)
 
 (require 'setup)
+
 (setup-define :delay
   (lambda (&optional time)
     `(run-with-idle-timer ,(or time 1) nil
                           (lambda () (require ',(setup-get 'feature)))))
   :documentation "Delay loading the feature until a certain amount of idle time has passed.")
+
+
+(setup-define :load-after
+    (lambda (features &rest body)
+      (let ((body `(progn
+                     (require ',(setup-get 'feature))
+                     ,@body)))
+        (dolist (feature (if (listp features)
+                             (nreverse features)
+                           (list features)))
+          (setq body `(with-eval-after-load ',feature ,body)))
+        body))
+  :documentation "Load the current feature after FEATURES."
+  :indent 1)
 
 (setup-define :if-system
   (lambda (systemtype)
