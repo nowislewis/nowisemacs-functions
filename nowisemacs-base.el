@@ -57,6 +57,16 @@
       `(autoload ',load-func ,feature-string nil t)))
   :documentation "Load the current feature after FEATURES.")
 
+(setup-define :messure-time
+  (lambda ()
+    (let ((feature-string (symbol-name (setup-get 'feature)))
+          (load-time `(time-subtract-millis (current-time) start-time)))
+      `(progn
+         (message (format (concat ,feature-string ":%d") ,load-time))
+         (setq start-time (current-time))
+         )))
+  :documentation "Messure the current feature after FEATURES.")
+
 ;; insert pairs
   (defun insert-quotations (&optional arg)
     "Enclose following ARG sexps in quotation marks.
