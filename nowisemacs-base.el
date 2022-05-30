@@ -53,11 +53,15 @@
   :documentation "If SYSTEMTYPE is not the current systemtype, stop evaluating form.")
 
 (setup-define :autoload
-  (lambda (load-func)
-    (let ((body '())
-          (feature-string (symbol-name (setup-get 'feature))))
-      `(autoload ',load-func ,feature-string nil t)))
-  :documentation "Load the current feature after FEATURES.")
+  (lambda (func)
+    (let ((fn (if (memq (car-safe func) '(quote function))
+                  (cadr func)
+                func)))
+      `(unless (fboundp (quote ,fn))
+         (autoload (function ,fn) ,(symbol-name (setup-get 'feature)) nil t))))
+  :documentation "Autoload COMMAND if not already bound."
+  :repeatable t
+  :signature '(FUNC ...))
 
 (setup-define :messure-time
   (lambda ()
