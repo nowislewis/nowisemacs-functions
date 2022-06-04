@@ -35,6 +35,13 @@
                           (lambda () (require ',(setup-get 'feature)))))
   :documentation "Delay loading the feature until a certain amount of idle time has passed.")
 
+(setup-define :defer
+  (lambda (features)
+    `(run-with-idle-timer 1 nil
+                          (lambda ()
+                            ,features)))
+    :documentation "Delay loading the feature until a certain amount of idle time has passed."
+    :repeatable t)
 
 (setup-define :load-after
     (lambda (features &rest body)
