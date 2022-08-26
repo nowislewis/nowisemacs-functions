@@ -14,13 +14,6 @@
 (setq use-dialog-box nil)               ;never pop dialog
 (setq mouse-yank-at-point t)            ;粘贴于光标处,而不是鼠标指针处
 
-(defvar nowisemacs-config-file
-  	(expand-file-name "init.org" user-emacs-directory))
-(defvar nowisemacs-config-useful-tools
-	(expand-file-name "useful-tools/" user-emacs-directory))
-(defvar nowisemacs-doc-root-dir (file-truename "~/Documents/emacs"))
-(defvar nowisemacs-doc-other-file-dir (concat nowisemacs-doc-root-dir "/other-files"))
-(defvar nowisemacs-doc-org-mode-dir (concat nowisemacs-doc-root-dir "/orgmode"))
 ;; (setq frame-resize-pixelwise t) ;设置缩放的模式,避免Mac平台最大化窗口以后右边和下边有空隙
 ;; (set-frame-parameter nil 'fullscreen 'maximized)
 
