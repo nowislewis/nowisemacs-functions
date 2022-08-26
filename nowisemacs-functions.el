@@ -178,4 +178,4 @@
 ;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
 
-(provide 'nowisemacs-base)
+(provide 'nowisemacs-functions)
